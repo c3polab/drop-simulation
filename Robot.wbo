@@ -1,0 +1,236 @@
+#VRML_OBJ R2019a utf8
+DEF robot Robot {
+  translation 0 1.5 1.5
+  children [
+    HingeJoint {
+      jointParameters DEF j0 HingeJointParameters {
+        anchor 0 -0.1 -0.015
+        minStop -1.3
+        maxStop 0.8
+      }
+      endPoint Solid {
+        translation 2.906032333536155e-92 -0.3516592532979439 -0.0785882089803879
+        rotation 1 0 0 0.2618013061004256
+        children [
+          HingeJoint {
+            jointParameters DEF j4 HingeJointParameters {
+              anchor 0 -0.206 0.019
+            }
+            endPoint Solid {
+              translation 0 -0.23 0.033
+              rotation -1 0 0 0.6544996938995746
+              children [
+                DEF link Shape {
+                  appearance PBRAppearance {
+                  }
+                  geometry Box {
+                    size 0.05 0.06 0.005
+                  }
+                }
+              ]
+              name "femur link"
+              boundingObject USE link
+              physics Physics {
+              }
+            }
+          }
+          HingeJoint {
+            jointParameters DEF j1 HingeJointParameters {
+              anchor 0 -0.25 0
+              minStop -2.1
+              maxStop 1
+            }
+            endPoint Solid {
+              translation 0 -0.415 0.121
+              rotation -0.9999999999999999 0 0 0.6544996938995746
+              children [
+                DEF knee_slider HingeJoint {
+                  jointParameters DEF knee_joint_parameters HingeJointParameters {
+                    anchor 0 0.325 -0.01
+                  }
+                  endPoint DEF knee_solid Solid {
+                    translation 0 0.325 -0.01
+                    rotation 1 0 0 0
+                    children [
+                      SliderJoint {
+                        jointParameters DEF knee_tendon JointParameters {
+                          axis 0 1 1
+                          springConstant 25786
+                        }
+                        endPoint SolidReference {
+                          solidName "hip link"
+                        }
+                      }
+                      DEF link Shape {
+                        appearance PBRAppearance {
+                        }
+                        geometry Box {
+                          size 0.05 0.019999999999999997 0.02
+                        }
+                      }
+                    ]
+                    name "kneecap"
+                    boundingObject USE link
+                    physics Physics {
+                    }
+                  }
+                }
+                DEF calf_group Group {
+                  children [
+                    Transform {
+                      translation 0 0.25 -0.01
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                          }
+                          geometry Box {
+                            size 0.04 0.15 0.02
+                          }
+                        }
+                      ]
+                    }
+                    DEF calf Shape {
+                      appearance PBRAppearance {
+                      }
+                      geometry Cylinder {
+                        height 0.4
+                        radius 0.02
+                      }
+                    }
+                  ]
+                }
+                HingeJoint {
+                  jointParameters DEF j2 HingeJointParameters {
+                    anchor 0 -0.2 0
+                    minStop -1.1
+                    maxStop 1.2
+                  }
+                  endPoint DEF foot Solid {
+                    translation -6.461963887086545e-17 -0.20017633578375743 -0.07994277843800915
+                    rotation -1 3.013319038710921e-13 -5.850706442372833e-13 0.0011605922251281776
+                    children [
+                      DEF heel_slider HingeJoint {
+                        jointParameters DEF heel_joint_parameters HingeJointParameters {
+                          anchor 0 0 0.15
+                        }
+                        endPoint DEF heel_solid Solid {
+                          translation 0 0 0.15
+                          rotation 1 0 0 0
+                          children [
+                            SliderJoint {
+                              jointParameters DEF heel_tendon JointParameters {
+                                axis 0 1 0
+                                springConstant 22974
+                              }
+                              endPoint SolidReference {
+                                solidName "femur link"
+                              }
+                            }
+                            DEF link Shape {
+                              appearance PBRAppearance {
+                              }
+                              geometry Box {
+                                size 0.05 0.020000000000000004 0.02
+                              }
+                            }
+                          ]
+                          name "heel"
+                          boundingObject USE link
+                          physics Physics {
+                          }
+                        }
+                      }
+                      DEF foot_group Group {
+                        children [
+                          Transform {
+                            translation 0 0 0.1
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                }
+                                geometry Box {
+                                  size 0.025 0.01 0.1
+                                }
+                              }
+                            ]
+                          }
+                          DEF foot Shape {
+                            appearance PBRAppearance {
+                            }
+                            geometry Box {
+                              size 0.1 0.01 0.2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                    name "foot"
+                    boundingObject USE foot_group
+                    physics Physics {
+                    }
+                  }
+                }
+              ]
+              boundingObject USE calf_group
+              physics Physics {
+              }
+            }
+          }
+          DEF femurž Shape {
+            appearance PBRAppearance {
+            }
+            geometry Cylinder {
+              height 0.5
+              radius 0.02
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE femurž
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters DEF j3 HingeJointParameters {
+        anchor 0 -0.1 -0.095
+      }
+      endPoint Solid {
+        translation 0 -0.12505801168366637 -0.10118357619930253
+        rotation 1 0 0 0.10997784594628349
+        children [
+          DEF link Shape {
+            appearance PBRAppearance {
+            }
+            geometry Box {
+              size 0.05 0.06 0.005
+            }
+          }
+        ]
+        name "hip link"
+        boundingObject USE link
+        physics Physics {
+        }
+        translationStep 0
+        rotationStep 0
+      }
+    }
+    DEF bodybox Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 0.2 0.2 0.2
+      }
+    }
+  ]
+  boundingObject USE bodybox
+  physics DEF physics_mass Physics {
+    density -1
+    mass 2
+  }
+  translationStep 0
+  rotationStep 0
+  controller ""
+  supervisor TRUE
+  selfCollision TRUE
+}

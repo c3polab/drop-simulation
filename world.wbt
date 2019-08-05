@@ -1,0 +1,45 @@
+#VRML_SIM R2019a utf8
+WorldInfo {
+  basicTimeStep 8
+  contactProperties [
+    ContactProperties {
+      material2 "dumbell"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.013532796466574988 0.9997354680600187 0.01859723965026857 1.490771418798562
+  position 1.7233637592033464 0.9217319881883277 1.499044325361176
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Solid {
+  children [
+    Shape {
+      appearance PBRAppearance {
+        metalness 0.3
+      }
+      geometry Plane {
+        size 100 100
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject Shape {
+    appearance Appearance {
+    }
+    geometry Plane {
+      size 100 100
+    }
+  }
+}
+Robot {
+  name "robot(1)"
+  controller "optimization"
+  supervisor TRUE
+}
