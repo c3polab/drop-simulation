@@ -7,10 +7,6 @@ TIME_STEP = 3
 
 supervisor = Supervisor()
 
-#get a handle to the root node and create the robot
-root = supervisor.getRoot()
-children = root.getField("children")
-children.importMFNode(-1, "Robot.wbo")
 
 #initial guess for the knee and heel levers
 #the y component of KNEE_INITIAL is the lever length
@@ -25,6 +21,14 @@ HEEL_INITIAL = np.array([0.0, 0.0, 0.15])
 #this is the initial guess for the tendon values
 KNEE_TENDON_INITIAL = 25000
 HEEL_TENDON_INITIAL = 25000
+
+#get a handle to the root node and create the robot
+root = supervisor.getRoot()
+children = root.getField("children")
+children.importMFNode(-1, "Robot.wbo")
+
+#set the leg spring constants to the initial values
+change_spring_constant(int(x[0]), int(x[1]))
 
 #function that changes the spring constant of the robot
 #edits the robot.wbo file
@@ -102,6 +106,7 @@ def jump_height(x):
     #this is because the scipy minimizes a function
     return -best_height
 
+
 #uncomment this line and the four lines in the jump_height funtion to optimize for lever length as well
 #x0 = np.array([KNEE_INITIAL[1], HEEL_INITIAL[2], KNEE_TENDON_INITIAL, HEEL_TENDON_INITIAL])
 
@@ -112,6 +117,8 @@ x0 = np.array([KNEE_TENDON_INITIAL, HEEL_TENDON_INITIAL])
 #the bounds for the variables being optimized for need to be specified
 #the iters parameter will give more precise results for a higher value, but will take more time
 minimizer_kwargs = dict(method = "Powell")
+
+#to simply test the leg with the initial values provided, just comment this line.
 optimized = shgo(jump_height, ((0, 30000), (0, 30000)), iters = 7, minimizer_kwargs = minimizer_kwargs)
 print(optimized.x)
 print(optimized.fun)
